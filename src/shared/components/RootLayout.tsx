@@ -37,7 +37,7 @@ export function RootLayout() {
   if (isAuthRoute) {
     return (
       <div className="min-h-svh bg-background-light text-slate-900">
-        <main className="mx-auto w-full max-w-5xl px-4 py-6">
+        <main className="mx-auto flex min-h-svh w-full max-w-5xl items-center justify-center px-4 py-10">
           <Outlet />
         </main>
       </div>
