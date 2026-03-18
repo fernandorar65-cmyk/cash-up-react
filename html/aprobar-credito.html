@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#172436",
+              "background-light": "#f6f7f7",
+              "background-dark": "#15181d",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<title>CashUp - Aprobación de Crédito</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 md:px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary dark:text-slate-100">
+<div class="size-6 bg-primary dark:bg-slate-200 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white dark:text-primary text-sm">account_balance_wallet</span>
+</div>
+<h2 class="text-primary dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em]">CashUp</h2>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Créditos</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Clientes</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Reportes</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-primary dark:text-slate-100 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-primary dark:text-slate-100 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full p-4 md:p-8 space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<nav class="flex text-xs text-slate-500 mb-2 gap-1 uppercase tracking-wider font-semibold">
+<span>Administración</span>
+<span>/</span>
+<span class="text-primary">Solicitudes de Crédito</span>
+</nav>
+<h1 class="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Aprobación y Desembolso</h1>
+<p class="text-slate-500 dark:text-slate-400">Expediente ID: #CSH-99283-B</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full uppercase tracking-widest">En Revisión</span>
+</div>
+</div>
+<!-- Dashboard Grid: Top Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Left: Resumen del Cliente -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="Profile photo of the credit applicant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkZqlQH4w0dc_rEJ8koQFkhFsT_FQEiVNmYvlINmxDfF_AIkGE8y1skT5DkTX_gaj4ssQWwdfrDJvHtPvd7M7UmBTaAocKak72SzBlnH4ydPUrpU1MgtQZO7njQoXRXN6-RdxJ6IRsjsxkdE6TWtcxaTH7ukPrQH9SlR6XZh1Yq2FUwbxHb5plijFvaCN0q1mCElG7EKGPsayKmn4z72Vrx806OLEOjifjwqHRj415rlFZXfKrQ94RHESY2UQUERVvtwN7aA67QA"/>
+</div>
+<div>
+<h3 class="text-lg font-bold text-primary dark:text-slate-100">Juan Carlos Pérez</h3>
+<p class="text-sm text-slate-500">Documento: 72839441-A</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<p class="text-xs text-slate-500 font-medium mb-1 uppercase tracking-tight">Scoring Actual</p>
+<p class="text-2xl font-bold text-primary">750</p>
+</div>
+<div class="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
+<p class="text-xs text-slate-500 font-medium mb-1 uppercase tracking-tight">Riesgo</p>
+<p class="text-lg font-bold text-emerald-600">BAJO</p>
+</div>
+</div>
+</div>
+<!-- Right: Propuesta de Crédito -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="text-lg font-bold text-primary dark:text-slate-100">Propuesta de Crédito</h3>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="flex flex-col">
+<p class="text-xs text-slate-500 uppercase font-medium">Monto</p>
+<p class="text-xl font-bold">$10,000</p>
+</div>
+<div class="flex flex-col">
+<p class="text-xs text-slate-500 uppercase font-medium">Tasa (TEA)</p>
+<p class="text-xl font-bold">12.0%</p>
+</div>
+<div class="flex flex-col">
+<p class="text-xs text-slate-500 uppercase font-medium">Plazo</p>
+<p class="text-xl font-bold">24 Meses</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500">Cuota Estimada:</span>
+<span class="font-bold text-primary">$470.73</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Approval Flow Section -->
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<h3 class="text-xl font-bold text-primary dark:text-slate-100 mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">rule</span> Flujo de Gestión
+                </h3>
+<div class="flex flex-col gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-700 dark:text-slate-300">Observaciones y Motivo (Requerido para rechazo u observación)</label>
+<textarea class="w-full rounded-lg border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-3 text-sm focus:ring-primary focus:border-primary min-h-[100px]" placeholder="Ingrese comentarios internos..."></textarea>
+</div>
+<div class="flex flex-wrap gap-4 items-center justify-between">
+<div class="flex flex-wrap gap-3">
+<button class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+                                Aprobar Crédito
+                            </button>
+<button class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-slate-700 dark:text-slate-200 px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg">visibility</span>
+                                Observar
+                            </button>
+<button class="bg-red-50 hover:bg-red-100 border border-red-100 text-red-600 px-6 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-lg">cancel</span>
+                                Rechazar
+                            </button>
+</div>
+<div class="h-10 w-px bg-slate-200 hidden lg:block"></div>
+<button class="bg-primary/20 text-white/50 cursor-not-allowed px-8 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-all" disabled="">
+<span class="material-symbols-outlined text-lg">payments</span>
+                            Desembolsar
+                        </button>
+</div>
+<p class="text-xs text-slate-400 italic">* El botón de desembolso se activará únicamente tras la aprobación definitiva del comité de riesgos.</p>
+</div>
+</div>
+<!-- Repayment Schedule (Simulated as "Post-Approval" View) -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden opacity-80">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/30">
+<h3 class="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+<span class="material-symbols-outlined">calendar_month</span>
+                        Cronograma Final de Cuotas (Vista Previa)
+                    </h3>
+<button class="text-sm font-medium text-primary flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">download</span> Descargar PDF
+                    </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm border-collapse">
+<thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 uppercase text-[10px] tracking-wider font-bold">
+<tr>
+<th class="px-6 py-4">N° Cuota</th>
+<th class="px-6 py-4">Fecha de Vencimiento</th>
+<th class="px-6 py-4">Capital</th>
+<th class="px-6 py-4">Interés</th>
+<th class="px-6 py-4">Seguro / Comis.</th>
+<th class="px-6 py-4 font-bold text-primary">Total Cuota</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr>
+<td class="px-6 py-4 font-medium">1</td>
+<td class="px-6 py-4">15 Oct 2023</td>
+<td class="px-6 py-4">$370.73</td>
+<td class="px-6 py-4">$100.00</td>
+<td class="px-6 py-4">$12.50</td>
+<td class="px-6 py-4 font-bold text-primary">$483.23</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-medium">2</td>
+<td class="px-6 py-4">15 Nov 2023</td>
+<td class="px-6 py-4">$374.44</td>
+<td class="px-6 py-4">$96.29</td>
+<td class="px-6 py-4">$12.50</td>
+<td class="px-6 py-4 font-bold text-primary">$483.23</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-medium">3</td>
+<td class="px-6 py-4">15 Dic 2023</td>
+<td class="px-6 py-4">$378.18</td>
+<td class="px-6 py-4">$92.55</td>
+<td class="px-6 py-4">$12.50</td>
+<td class="px-6 py-4 font-bold text-primary">$483.23</td>
+</tr>
+<tr class="bg-slate-50/30">
+<td class="px-6 py-3 text-center text-slate-400 italic text-xs" colspan="6">... 21 cuotas restantes ...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Footer Info -->
+<footer class="p-8 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-xs text-slate-400">CashUp Enterprise System © 2023. Todos los procesos están sujetos a auditoría de cumplimiento normativo.</p>
+</footer>
+</div>
+</div>
+</body></html>

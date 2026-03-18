@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CashUp - Gestión de Clientes y Scoring</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#172436",
+                        "background-light": "#f6f7f7",
+                        "background-dark": "#15181d",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Nav Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white dark:bg-background-dark px-6 py-3 lg:px-10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">CashUp</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-primary/5 dark:bg-white/5">
+<div class="text-slate-500 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 text-sm" placeholder="Buscar cliente..."/>
+</div>
+</label>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="flex size-10 items-center justify-center rounded-lg bg-primary/5 dark:bg-white/5 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary dark:text-slate-100">notifications</span>
+</button>
+<button class="flex size-10 items-center justify-center rounded-lg bg-primary/5 dark:bg-white/5 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary dark:text-slate-100">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary/20 border border-primary/10 bg-cover bg-center" data-alt="User profile avatar placeholder" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCeG4ewDNe4ta_NIeIv0UFgyNYv_8vGy6DUBHU-W0zgLi-vC49I_gcA710-Il4VHfhBF4rFG44ymJmifrCHIyfnz6Qq7ugYIGhflbvKuLrfhpFAX1mEs_dp7WjKn6ovi2Ys8bsDy_SjG2iMKOrnyC5_zIa7cb036Vl-F5ROLbI2Qlv0kVy09yBtFXQ94jvEMqGSN7knKTOccDEPxxaczfyCq3eSIVMMkMYrAf0kOSEx1Q39ypkgof8TXirr2arGP_puh1NSOPstGQ');"></div>
+</div>
+</header>
+<div class="flex flex-1 flex-col lg:flex-row">
+<!-- Sidebar Navigation -->
+<aside class="w-full lg:w-64 border-r border-primary/10 bg-white dark:bg-background-dark p-4 flex flex-col gap-2">
+<div class="mb-4 px-3">
+<h1 class="text-primary dark:text-slate-100 text-sm font-bold uppercase tracking-wider">Admin Portal</h1>
+<p class="text-slate-500 text-xs">Gestión de Riesgo</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white shadow-sm" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Clientes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Préstamos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-primary/5 transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium">Reportes</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col bg-background-light dark:bg-background-dark p-4 lg:p-8 gap-6 overflow-y-auto">
+<!-- Header Actions -->
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div>
+<h2 class="text-3xl font-black text-primary dark:text-slate-100 tracking-tight">Gestión de Clientes</h2>
+<p class="text-slate-500 text-sm">Monitoreo de cartera y evaluación de scoring crediticio.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-white px-6 py-2.5 rounded-lg font-bold hover:opacity-90 transition-opacity shadow-lg">
+<span class="material-symbols-outlined">person_add</span>
+<span>Nuevo Cliente</span>
+</button>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+<!-- Left Column: List & Filters -->
+<div class="xl:col-span-5 flex flex-col gap-4">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-primary/5 shadow-sm">
+<div class="flex flex-col gap-4">
+<!-- Filters -->
+<div class="flex gap-2 overflow-x-auto pb-2">
+<button class="px-4 py-1.5 rounded-full bg-primary text-white text-xs font-bold">Todos</button>
+<button class="px-4 py-1.5 rounded-full bg-primary/5 text-slate-600 text-xs font-bold hover:bg-primary/10">Activos</button>
+<button class="px-4 py-1.5 rounded-full bg-primary/5 text-slate-600 text-xs font-bold hover:bg-primary/10">En Mora</button>
+<button class="px-4 py-1.5 rounded-full bg-primary/5 text-slate-600 text-xs font-bold hover:bg-primary/10">Revision</button>
+</div>
+<!-- Search Bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-background-light dark:bg-white/5 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/20" placeholder="Nombre o documento..." type="text"/>
+</div>
+</div>
+<!-- Customer Table -->
+<div class="mt-6 overflow-hidden">
+<table class="w-full text-left">
+<thead class="border-b border-primary/5">
+<tr class="text-slate-400 text-[10px] uppercase tracking-widest font-bold">
+<th class="pb-3 pl-2">Cliente</th>
+<th class="pb-3 text-center">Score</th>
+<th class="pb-3 text-right pr-2">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-primary/5 cursor-pointer bg-primary/5 transition-colors">
+<td class="py-4 pl-2">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 bg-cover" data-alt="Customer avatar profile image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVl4RMlUtKS00s3WlaUjLhF4WEMtvj3xLaKgMnWo0CnoWtAdw-GEvMUsnwjQuK-S7_4i-xAhNo_uvFbS3x0Z01myTIEoRtMsITI4cSy0CSq12fVi88WhUKDuyf0WyiGNwYkcPT86C_E5XthPu_m3W-j6Qp7vmnuk8060DlGJk8PaSqV2PqXq6lzAfs7ZFaVaNlVnEHYVdieU5GK2uyoz7FFYjVgev-E0hcjf36KAg_4CagC6q6iiyFbl8dBgXOHuHpXqLBp9wvrQ');"></div>
+<div>
+<p class="text-sm font-bold text-primary dark:text-slate-100">Maria Rodriguez</p>
+<p class="text-[10px] text-slate-500">DNI: 40.231.554</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-center">
+<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">750</span>
+</td>
+<td class="py-4 text-right pr-2">
+<span class="inline-block size-2 rounded-full bg-emerald-500"></span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 cursor-pointer transition-colors">
+<td class="py-4 pl-2">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 bg-cover" data-alt="Customer avatar profile image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAblh0XnR7ulRmQ813y3lo0tQGY8ruUka_1OUwGtBuK0z3bTmvq6FpU4Lah9wPwIxrW7YC6J_GKFNzo6UPu8NgRLlaqcbS46mVUJNsnNoN4P2LekeEWG9jral9gbzyPqGqPh2y_VOC9rStF-8U5ZSOS2ljNVoFoAe9oC7RMG7vDwjRKwiWZM9BSrENJ7hCUvdlH6TLEkaVXTMQ0J-jJkNB-BFnwlgNGqgAq-dmtIeNI-7NGquYnrWzlJ909U3Y2KpYfU52F2rfh3A');"></div>
+<div>
+<p class="text-sm font-bold text-primary dark:text-slate-100">Juan Pérez</p>
+<p class="text-[10px] text-slate-500">DNI: 38.990.122</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-center">
+<span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded">420</span>
+</td>
+<td class="py-4 text-right pr-2">
+<span class="inline-block size-2 rounded-full bg-amber-500"></span>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 cursor-pointer transition-colors">
+<td class="py-4 pl-2">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 bg-cover" data-alt="Customer avatar profile image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCD6CH2MPAtSIEBdtCNpZvzCa0R2bRka7hogtWTxKRPncjhNKLoARbhEAI7PatjJbCfnnMYtgll4gq7SDVHX-S_6g4yobdi6aeJmyWMRet5YaVSAaCTa9zjXC1xHG26UMHGl3FJvTTREAjNGkq2SGnj0jwvvXOi_RGxJxpbm00LRoItv8GRb7NagCZlrQSOTz2NDhItu8v3KYXChQtHhTioNWDFSBa2OMZua4HHhGzS_38pKe-FAwIsFG8gTx9kkSXLwmcIX6Gejw');"></div>
+<div>
+<p class="text-sm font-bold text-primary dark:text-slate-100">Lucas Gomez</p>
+<p class="text-[10px] text-slate-500">DNI: 42.112.908</p>
+</div>
+</div>
+</td>
+<td class="py-4 text-center">
+<span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded">210</span>
+</td>
+<td class="py-4 text-right pr-2">
+<span class="inline-block size-2 rounded-full bg-red-500"></span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Details & Scoring -->
+<div class="xl:col-span-7 flex flex-col gap-6">
+<!-- Personal Info Card -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-primary/5 shadow-sm overflow-hidden">
+<div class="bg-primary p-6 text-white flex justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-xl border-2 border-white/20 bg-cover" data-alt="Maria Rodriguez large profile photo" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAE2NHcI4YxDxJ6Pgcka8IIoErkqbHZNDZJMkn5SXhgprHPiojXFtndstc7BUC145QRHDybnFxT64idTWQjaapDndAT86kOXXn-_4yuyV802NHPOUA4fAzdfJ2b4xhzZwZiivYG_SsG6zND0JQ8dD9g7TNOWn8TzloJdbp58OJuzAeGv9hITJoCEHKeaZylvMm08WcBOIHhNx51n3O_HoEQaNZO13RyuSgbkd0-ORz-tdPBdOWGb2Dasd9lRHGnDVHjhbPHmv_lvw');"></div>
+<div>
+<h3 class="text-xl font-bold leading-tight">Maria Rodriguez</h3>
+<p class="text-white/60 text-sm">Cliente Premium • Desde Octubre 2021</p>
+</div>
+</div>
+<button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm font-bold transition-colors border border-white/20">
+                                Editar Perfil
+                            </button>
+</div>
+<div class="p-6 grid grid-cols-2 lg:grid-cols-4 gap-6">
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 mb-1">DNI / Documento</p>
+<p class="text-sm font-semibold text-primary dark:text-slate-100">40.231.554</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 mb-1">Teléfono</p>
+<p class="text-sm font-semibold text-primary dark:text-slate-100">+54 9 11 5543-2210</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 mb-1">Email</p>
+<p class="text-sm font-semibold text-primary dark:text-slate-100">maria.rodr@email.com</p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-slate-400 mb-1">Ocupación</p>
+<p class="text-sm font-semibold text-primary dark:text-slate-100">Ing. de Software</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Scoring Card -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-primary/5 shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="text-sm font-bold text-primary dark:text-slate-100 uppercase tracking-wider">Credit Scoring</h4>
+<p class="text-xs text-slate-500">Última actualización: hace 2 horas</p>
+</div>
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+</div>
+<div class="flex flex-col items-center py-4">
+<div class="relative flex items-center justify-center">
+<!-- Simple SVG Gauges representing scoring -->
+<svg class="size-40 transform -rotate-90">
+<circle class="text-slate-100 dark:text-slate-800" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-emerald-500" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="439.8" stroke-dashoffset="110" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center rotate-90">
+<span class="text-3xl font-black text-emerald-600">750</span>
+<span class="text-[10px] font-bold text-slate-400 uppercase">de 1000</span>
+</div>
+</div>
+<div class="mt-4 text-center">
+<span class="bg-emerald-100 text-emerald-700 text-xs font-black px-3 py-1 rounded-full">RIESGO BAJO</span>
+</div>
+</div>
+<button class="mt-4 w-full bg-primary text-white py-2.5 rounded-lg font-bold text-sm shadow-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+                                Recalcular Scoring
+                            </button>
+</div>
+<!-- Payment Behavior Chart -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-primary/5 shadow-sm">
+<h4 class="text-sm font-bold text-primary dark:text-slate-100 uppercase tracking-wider mb-6">Historial de Pagos</h4>
+<div class="flex items-center gap-8 h-full">
+<div class="relative size-32 shrink-0">
+<div class="absolute inset-0 rounded-full border-[14px] border-slate-100 dark:border-slate-800"></div>
+<div class="absolute inset-0 rounded-full border-[14px] border-emerald-500" style="clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);"></div>
+<div class="absolute inset-0 flex flex-center items-center justify-center">
+<p class="text-xl font-bold">85%</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 flex-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-slate-500 font-medium">A tiempo</span>
+</div>
+<span class="text-xs font-bold">42</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-amber-500"></span>
+<span class="text-xs text-slate-500 font-medium">Atrasado &lt; 30d</span>
+</div>
+<span class="text-xs font-bold">5</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-red-500"></span>
+<span class="text-xs text-slate-500 font-medium">Mora grave</span>
+</div>
+<span class="text-xs font-bold">1</span>
+</div>
+<div class="mt-2 pt-2 border-t border-primary/5 flex justify-between">
+<span class="text-xs font-bold uppercase text-slate-400">Total cuotas</span>
+<span class="text-xs font-black">48</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Financial Summary Card -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-sm font-bold text-primary dark:text-slate-100 uppercase tracking-wider">Estado de Deuda Total</h4>
+<span class="bg-primary/10 text-primary dark:text-white px-3 py-1 rounded text-xs font-bold">$ USD</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-4 rounded-xl bg-background-light dark:bg-white/5 border border-primary/5">
+<p class="text-[10px] text-slate-400 font-bold uppercase mb-2">Deuda Capital</p>
+<p class="text-2xl font-black text-primary dark:text-slate-100">$24,500.00</p>
+</div>
+<div class="p-4 rounded-xl bg-background-light dark:bg-white/5 border border-primary/5">
+<p class="text-[10px] text-slate-400 font-bold uppercase mb-2">Intereses Acumulados</p>
+<p class="text-2xl font-black text-primary dark:text-slate-100">$3,240.50</p>
+</div>
+<div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900">
+<p class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase mb-2">Próximo Vencimiento</p>
+<p class="text-2xl font-black text-emerald-700 dark:text-emerald-300">$1,150.00</p>
+<p class="text-[10px] text-emerald-600/70 mt-1 font-medium">12 Oct, 2023</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>
