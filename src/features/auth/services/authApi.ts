@@ -1,7 +1,7 @@
 import { httpClient } from '../../../shared/services/httpClient'
 
 export type LoginBody = { email: string; password: string }
-export type RegisterBody = { email: string; password: string }
+export type RegisterBody = { email: string; name: string; password: string }
 
 type LoginResponse = { access_token?: string; token?: string; jwt?: string; [k: string]: unknown }
 
@@ -16,6 +16,7 @@ export const authApi = {
   async register(body: RegisterBody) {
     await httpClient.post('/auth/register', body)
   },
+
   async login(body: LoginBody) {
     const { data } = await httpClient.post<LoginResponse>('/auth/login', body)
     const token = normalizeToken(data)

@@ -9,6 +9,8 @@ import { StaffDashboardPage } from '../features/dashboard/pages/StaffDashboardPa
 import { ClientsPage } from '../features/clients/pages/ClientsPage'
 import { NewCreditRequestPage } from '../features/credit-requests/pages/NewCreditRequestPage'
 import { ApproveCreditRequestPage } from '../features/credit-requests/pages/ApproveCreditRequestPage'
+import { ProfilePage } from '../features/profile/pages/ProfilePage'
+import { CreateUserPage } from '../features/users/pages/CreateUserPage'
 
 export function AppRoutes() {
   return (
@@ -23,6 +25,10 @@ export function AppRoutes() {
             <Route path="staff" element={<StaffLayout />}>
               <Route path="dashboard" element={<StaffDashboardPage />} />
               <Route path="clients" element={<ClientsPage />} />
+              <Route path="profile" element={<ProfilePage />} />
+              <Route path="users">
+                <Route path="new" element={<CreateUserPage />} />
+              </Route>
               <Route path="credit-requests">
                 <Route path="new" element={<NewCreditRequestPage />} />
                 <Route path="approve" element={<ApproveCreditRequestPage />} />

@@ -8,6 +8,8 @@ const items: Item[] = [
   { to: '/staff/clients', label: 'Clientes', icon: 'groups' },
   { to: '/staff/credit-requests/new', label: 'Solicitudes', icon: 'description', filled: true },
   { to: '/staff/credit-requests/approve', label: 'Aprobar', icon: 'rule' },
+  { to: '/staff/users/new', label: 'Crear usuario', icon: 'person_add' },
+  { to: '/staff/profile', label: 'Perfil', icon: 'person' },
 ]
 
 export function StaffSidebar({

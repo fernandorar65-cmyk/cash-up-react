@@ -6,20 +6,23 @@ import { useAuth } from '../hooks/useAuth'
 
 export function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
   const { register } = useAuth()
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<unknown>(null)
   const [loading, setLoading] = useState(false)
 
-  const canSubmit = useMemo(() => email.trim().length > 3 && password.length >= 6, [email, password])
+  const canSubmit = useMemo(() => {
+    return name.trim().length >= 3 && email.trim().length > 3 && password.length >= 6
+  }, [email, name, password])
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
     setError(null)
     setLoading(true)
     try {
-      await register({ email: email.trim(), password })
+      await register({ name: name.trim(), email: email.trim(), password })
       onSuccess()
     } catch (err) {
       setError(err)
@@ -31,6 +34,21 @@ export function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="space-y-4">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold leading-normal text-slate-800">Nombre</label>
+          <div className="relative">
+            <Icon name="person" className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-slate-400" />
+            <input
+              className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15"
+              placeholder="Ej. Fernando Pérez"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={loading}
+              autoComplete="name"
+            />
+          </div>
+        </div>
+
         <div className="space-y-2">
           <label className="text-sm font-semibold leading-normal text-slate-800">Email</label>
           <div className="relative">
