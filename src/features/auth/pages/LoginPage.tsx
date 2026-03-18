@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { LoginForm } from '../components/LoginForm'
 import { Icon } from '../../../shared/components/Icon'
+import { getRole } from '../services/token.storage'
 
 export function LoginPage() {
   const navigate = useNavigate()
@@ -76,7 +77,14 @@ export function LoginPage() {
               <p className="text-sm text-slate-600">Usa tus credenciales para continuar.</p>
             </div>
 
-            <LoginForm onSuccess={() => navigate('/staff/dashboard', { replace: true })} />
+            <LoginForm
+              onSuccess={() => {
+                const role = (getRole() ?? '').trim().toUpperCase()
+                if (role === 'ANALYST') navigate('/staff/dashboard', { replace: true })
+                else if (role === 'CLIENT') navigate('/client/profile', { replace: true })
+                else navigate('/forbidden', { replace: true })
+              }}
+            />
           </div>
         </section>
       </div>

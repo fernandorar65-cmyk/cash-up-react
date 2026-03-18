@@ -5,33 +5,58 @@ import { LoginPage, RegisterPage } from '../features/auth'
 import { NotFoundPage } from '../shared/components/NotFoundPage'
 import { RootLayout } from '../shared/components/RootLayout'
 import { StaffLayout } from '../shared/components/StaffLayout'
+import { ForbiddenPage } from '../shared/components/ForbiddenPage'
 import { StaffDashboardPage } from '../features/dashboard/pages/StaffDashboardPage'
 import { ClientsPage } from '../features/clients/pages/ClientsPage'
 import { NewCreditRequestPage } from '../features/credit-requests/pages/NewCreditRequestPage'
 import { ApproveCreditRequestPage } from '../features/credit-requests/pages/ApproveCreditRequestPage'
 import { ProfilePage } from '../features/profile/pages/ProfilePage'
 import { CreateUserPage } from '../features/users/pages/CreateUserPage'
+import { RoleGuard } from '../shared/hooks/RoleGuard'
+import { ClientLayout } from '../shared/components/ClientLayout'
+import { ClientProfilePage } from '../features/client/pages/ClientProfilePage'
+import { ClientNewCreditRequestPage } from '../features/client/pages/ClientNewCreditRequestPage'
+import { ClientLoansPage } from '../features/client/pages/ClientLoansPage'
+import { ClientLoanDetailPage } from '../features/client/pages/ClientLoanDetailPage'
+import { IndexRedirect } from './IndexRedirect'
 
 export function AppRoutes() {
   return (
     <Routes>
       <Route element={<RootLayout />}>
-        <Route index element={<Navigate to="/staff/dashboard" replace />} />
+        <Route index element={<IndexRedirect />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
+        <Route path="forbidden" element={<ForbiddenPage />} />
 
         <Route element={<TokenGuard />}>
           <Route element={<AuthGuard />}>
-            <Route path="staff" element={<StaffLayout />}>
-              <Route path="dashboard" element={<StaffDashboardPage />} />
-              <Route path="clients" element={<ClientsPage />} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="users">
-                <Route path="new" element={<CreateUserPage />} />
+            <Route element={<RoleGuard allow={['CLIENT']} />}>
+              <Route path="client" element={<ClientLayout />}>
+                <Route index element={<Navigate to="/client/profile" replace />} />
+                <Route path="profile" element={<ClientProfilePage />} />
+                <Route path="credit-requests">
+                  <Route path="new" element={<ClientNewCreditRequestPage />} />
+                </Route>
+                <Route path="loans">
+                  <Route index element={<ClientLoansPage />} />
+                  <Route path=":loanId" element={<ClientLoanDetailPage />} />
+                </Route>
               </Route>
-              <Route path="credit-requests">
-                <Route path="new" element={<NewCreditRequestPage />} />
-                <Route path="approve" element={<ApproveCreditRequestPage />} />
+            </Route>
+
+            <Route element={<RoleGuard allow={['ANALYST']} />}>
+              <Route path="staff" element={<StaffLayout />}>
+                <Route path="dashboard" element={<StaffDashboardPage />} />
+                <Route path="clients" element={<ClientsPage />} />
+                <Route path="profile" element={<ProfilePage />} />
+                <Route path="users">
+                  <Route path="new" element={<CreateUserPage />} />
+                </Route>
+                <Route path="credit-requests">
+                  <Route path="new" element={<NewCreditRequestPage />} />
+                  <Route path="approve" element={<ApproveCreditRequestPage />} />
+                </Route>
               </Route>
             </Route>
           </Route>

@@ -1,15 +1,23 @@
 import { NavLink } from 'react-router-dom'
 import { Icon } from './Icon'
+import { useAuth } from '../../features/auth'
+import type { Role } from '../../features/auth/types/auth.types'
 
-type Item = { to: string; label: string; icon: string; filled?: boolean }
+type Item = { to: string; label: string; icon: string; filled?: boolean; roles: Role[] }
 
 const items: Item[] = [
-  { to: '/staff/dashboard', label: 'Dashboard', icon: 'dashboard' },
-  { to: '/staff/clients', label: 'Clientes', icon: 'groups' },
-  { to: '/staff/credit-requests/new', label: 'Solicitudes', icon: 'description', filled: true },
-  { to: '/staff/credit-requests/approve', label: 'Aprobar', icon: 'rule' },
-  { to: '/staff/users/new', label: 'Crear usuario', icon: 'person_add' },
-  { to: '/staff/profile', label: 'Perfil', icon: 'person' },
+  { to: '/staff/dashboard', label: 'Dashboard', icon: 'dashboard', roles: ['ANALYST'] },
+  { to: '/staff/clients', label: 'Clientes', icon: 'groups', roles: ['ANALYST'] },
+  {
+    to: '/staff/credit-requests/new',
+    label: 'Solicitudes',
+    icon: 'description',
+    filled: true,
+    roles: ['ANALYST'],
+  },
+  { to: '/staff/credit-requests/approve', label: 'Aprobar', icon: 'rule', roles: ['ANALYST'] },
+  { to: '/staff/users/new', label: 'Crear usuario', icon: 'person_add', roles: ['ANALYST'] },
+  { to: '/staff/profile', label: 'Perfil', icon: 'person', roles: ['ANALYST'] },
 ]
 
 export function StaffSidebar({
@@ -19,6 +27,9 @@ export function StaffSidebar({
   title?: string
   subtitle?: string
 }) {
+  const { roles } = useAuth()
+  const visibleItems = items.filter((it) => it.roles.some((r) => roles.includes(r)))
+
   return (
     <aside className="hidden h-screen w-64 shrink-0 flex-col justify-between border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 md:flex">
       <div className="p-6">
@@ -33,7 +44,7 @@ export function StaffSidebar({
         </div>
 
         <nav className="mt-8 flex flex-col gap-1">
-          {items.map((it) => (
+          {visibleItems.map((it) => (
             <NavLink
               key={it.to}
               to={it.to}

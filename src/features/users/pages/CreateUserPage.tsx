@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
+import { useMutation } from '@tanstack/react-query'
 import { Icon } from '../../../shared/components/Icon'
+import { httpClient } from '../../../shared/services/httpClient'
+import { errorMessage } from '../../../shared/utils/errorMessage'
 
 type DocumentType = 'DNI' | 'CE' | 'PASSPORT'
 
@@ -11,6 +14,13 @@ type CreateUserBody = {
   email: string
   phone: string
   monthlyIncome: number
+}
+
+type CreateClientResponse = {
+  id?: string
+  email?: string
+  name?: string
+  [k: string]: unknown
 }
 
 const initial: CreateUserBody = {
@@ -24,7 +34,15 @@ const initial: CreateUserBody = {
 
 export function CreateUserPage() {
   const [body, setBody] = useState<CreateUserBody>(initial)
-  const [submitted, setSubmitted] = useState<CreateUserBody | null>(null)
+  const [submitted, setSubmitted] = useState<CreateClientResponse | CreateUserBody | null>(null)
+
+  const createClient = useMutation({
+    mutationKey: ['clients', 'create'],
+    mutationFn: async (payload: CreateUserBody) => {
+      const { data } = await httpClient.post<CreateClientResponse>('/clients', payload)
+      return data
+    },
+  })
 
   const canSubmit = useMemo(() => {
     const emailOk = body.email.trim().includes('@')
@@ -35,15 +53,21 @@ export function CreateUserPage() {
     return emailOk && nameOk && docOk && phoneOk && incomeOk
   }, [body])
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault()
-    setSubmitted({
+    const payload: CreateUserBody = {
       ...body,
       documentNumber: body.documentNumber.trim(),
       name: body.name.trim(),
       email: body.email.trim(),
       phone: body.phone.trim(),
-    })
+    }
+    try {
+      const res = await createClient.mutateAsync(payload)
+      setSubmitted(res)
+    } catch {
+      setSubmitted(payload)
+    }
   }
 
   return (
@@ -153,23 +177,36 @@ export function CreateUserPage() {
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <button
               type="submit"
-              disabled={!canSubmit}
+              disabled={!canSubmit || createClient.isPending}
               className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
             >
               <Icon name="save" className="text-lg" />
-              Guardar usuario
+              {createClient.isPending ? 'Guardando…' : 'Guardar usuario'}
             </button>
             <button
               type="button"
               onClick={() => {
                 setBody(initial)
                 setSubmitted(null)
+                createClient.reset()
               }}
               className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
             >
               Restablecer
             </button>
           </div>
+
+          {createClient.isError ? (
+            <div className="mt-4 rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+              {errorMessage(createClient.error)}
+            </div>
+          ) : null}
+
+          {createClient.isSuccess ? (
+            <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
+              Usuario creado correctamente.
+            </div>
+          ) : null}
         </form>
 
         <aside className="space-y-4 lg:col-span-2">

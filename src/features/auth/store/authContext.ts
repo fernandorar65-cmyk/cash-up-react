@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import type { LoginBody, RegisterBody } from '../services/authApi'
+import type { LoginBody, RefreshBody, RegisterBody } from '../services/authApi'
 import type { AuthSession, Role } from '../types/auth.types'
 
 export type AuthContextValue = {
@@ -11,6 +11,7 @@ export type AuthContextValue = {
   isTokenExpired: boolean
   login: (body: LoginBody) => Promise<void>
   register: (body: RegisterBody) => Promise<void>
+  refresh: (body: RefreshBody) => Promise<void>
   logout: () => void
 }
 
