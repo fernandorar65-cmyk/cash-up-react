@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { Icon } from '../../../shared/components/Icon'
@@ -27,14 +27,13 @@ export function CreateUserPage() {
     },
   })
 
-  const canSubmit = useMemo(() => {
-    const emailOk = body.email.trim().includes('@')
-    const nameOk = body.name.trim().length >= 3
-    const docOk = body.documentNumber.trim().length >= 6
-    const phoneOk = body.phone.trim().length >= 7
-    const incomeOk = Number.isFinite(body.monthlyIncome) && body.monthlyIncome > 0
-    return emailOk && nameOk && docOk && phoneOk && incomeOk
-  }, [body])
+  const canSubmit =
+    body.email.trim().includes('@') &&
+    body.name.trim().length >= 3 &&
+    body.documentNumber.trim().length >= 6 &&
+    body.phone.trim().length >= 7 &&
+    Number.isFinite(body.monthlyIncome) &&
+    body.monthlyIncome > 0
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault()

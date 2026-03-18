@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -105,17 +105,17 @@ export function ReviewCreditRequestPage() {
     },
   })
 
-  const canApprove = useMemo(() => {
-    const amountOk = Number.isFinite(Number(approvedAmount)) && Number(approvedAmount) > 0
-    const termOk = Number.isFinite(Number(approvedTermMonths)) && Number(approvedTermMonths) >= 1
-    const rateOk = Number.isFinite(Number(approvedInterestRate)) && Number(approvedInterestRate) > 0
-    const typeOk = approvedInterestType.trim().length >= 2
-    return amountOk && termOk && rateOk && typeOk && !approveMutation.isPending
-  }, [approvedAmount, approvedInterestRate, approvedInterestType, approvedTermMonths, approveMutation.isPending])
+  const canApprove =
+    Number.isFinite(Number(approvedAmount)) &&
+    Number(approvedAmount) > 0 &&
+    Number.isFinite(Number(approvedTermMonths)) &&
+    Number(approvedTermMonths) >= 1 &&
+    Number.isFinite(Number(approvedInterestRate)) &&
+    Number(approvedInterestRate) > 0 &&
+    approvedInterestType.trim().length >= 2 &&
+    !approveMutation.isPending
 
-  const canReject = useMemo(() => {
-    return rejectionReason.trim().length >= 5 && !rejectMutation.isPending
-  }, [rejectionReason, rejectMutation.isPending])
+  const canReject = rejectionReason.trim().length >= 5 && !rejectMutation.isPending
 
   function onApprove(e: FormEvent) {
     e.preventDefault()

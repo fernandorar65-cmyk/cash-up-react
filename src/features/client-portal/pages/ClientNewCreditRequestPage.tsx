@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { httpClient } from '../../../shared/services/httpClient'
@@ -27,11 +27,12 @@ export function ClientNewCreditRequestPage() {
     onSuccess: (data) => setResult(data),
   })
 
-  const canSubmit = useMemo(() => {
-    const amountOk = Number.isFinite(body.requestedAmount) && body.requestedAmount > 0
-    const termOk = Number.isFinite(body.termMonths) && body.termMonths >= 1
-    return amountOk && termOk && !createMutation.isPending
-  }, [body.requestedAmount, body.termMonths, createMutation.isPending])
+  const canSubmit =
+    Number.isFinite(body.requestedAmount) &&
+    body.requestedAmount > 0 &&
+    Number.isFinite(body.termMonths) &&
+    body.termMonths >= 1 &&
+    !createMutation.isPending
 
   function onSubmit(e: FormEvent) {
     e.preventDefault()

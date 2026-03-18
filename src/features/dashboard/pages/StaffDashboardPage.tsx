@@ -1,71 +1,10 @@
 import { Icon } from '../../../shared/components/Icon'
+import MetricCard from '../components/MetricCard'
+import PendingTaskItem from '../components/PendingTaskItem'
 
-function MetricCard({
-  title,
-  value,
-  sub,
-  icon,
-  accentClass,
-  progressPct,
-}: {
-  title: string
-  value: string
-  sub?: string
-  icon: string
-  accentClass: string
-  progressPct?: number
-}) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm font-medium uppercase tracking-wider text-slate-500">{title}</p>
-        <Icon name={icon} className={accentClass} />
-      </div>
-      <div className="flex items-end gap-3">
-        <p className="text-3xl font-bold leading-none text-slate-900">{value}</p>
-        {sub ? <p className="flex items-center text-sm font-medium text-emerald-600">{sub}</p> : null}
-      </div>
-      {typeof progressPct === 'number' ? (
-        <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
-          <div className="h-full bg-orange-500" style={{ width: `${progressPct}%` }} />
-        </div>
-      ) : null}
-    </div>
-  )
-}
 
-function PendingTaskItem({
-  color,
-  icon,
-  title,
-  desc,
-  when,
-}: {
-  color: 'orange' | 'blue' | 'emerald' | 'slate'
-  icon: string
-  title: string
-  desc: string
-  when: string
-}) {
-  const colorMap: Record<typeof color, string> = {
-    orange: 'bg-orange-100 text-orange-700',
-    blue: 'bg-blue-100 text-blue-700',
-    emerald: 'bg-emerald-100 text-emerald-700',
-    slate: 'bg-slate-100 text-slate-700',
-  }
-  return (
-    <div className="flex items-start gap-4 rounded-xl border border-transparent p-3 transition-colors hover:border-slate-200 hover:bg-slate-50">
-      <div className={`flex size-10 shrink-0 items-center justify-center rounded-lg ${colorMap[color]}`}>
-        <Icon name={icon} />
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-slate-900">{title}</p>
-        <p className="text-xs text-slate-600">{desc}</p>
-      </div>
-      <span className="text-[10px] font-bold uppercase text-slate-400">{when}</span>
-    </div>
-  )
-}
+
+
 
 export function StaffDashboardPage() {
   return (
@@ -143,8 +82,8 @@ export function StaffDashboardPage() {
             ].map((x) => (
               <div key={x.day} className="flex flex-1 flex-col items-center justify-end gap-2">
                 <div className="flex w-full items-end justify-center gap-1">
-                    <div className="w-4 rounded-t bg-slate-900/15" style={{ height: `${x.a * 2}px` }} />
-                    <div className="w-4 rounded-t bg-slate-900" style={{ height: `${x.b * 2}px` }} />
+                  <div className="w-4 rounded-t bg-slate-900/15" style={{ height: `${x.a * 2}px` }} />
+                  <div className="w-4 rounded-t bg-slate-900" style={{ height: `${x.b * 2}px` }} />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{x.day}</span>
               </div>

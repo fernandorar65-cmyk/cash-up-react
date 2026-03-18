@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { errorMessage } from '../../../shared/utils/errorMessage'
@@ -13,7 +13,7 @@ export function LoginForm({ onSuccess }: { onSuccess: () => void }) {
   const [error, setError] = useState<unknown>(null)
   const [loading, setLoading] = useState(false)
 
-  const canSubmit = useMemo(() => email.trim().length > 3 && password.length >= 3, [email, password])
+  const canSubmit = email.trim().length > 3 && password.length >= 3
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault()

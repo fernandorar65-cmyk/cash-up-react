@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { errorMessage } from '../../../shared/utils/errorMessage'
 import { Icon } from '../../../shared/components/Icon'
@@ -13,9 +13,7 @@ export function RegisterForm({ onSuccess }: { onSuccess: () => void }) {
   const [error, setError] = useState<unknown>(null)
   const [loading, setLoading] = useState(false)
 
-  const canSubmit = useMemo(() => {
-    return name.trim().length >= 3 && email.trim().length > 3 && password.length >= 6
-  }, [email, name, password])
+  const canSubmit = name.trim().length >= 3 && email.trim().length > 3 && password.length >= 6
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault()

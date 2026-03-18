@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { httpClient } from '../../../shared/services/httpClient'
@@ -31,24 +31,14 @@ export function ClientProfilePage() {
   })
 
   const me = meQuery.data
-  const form = useMemo<UpdateClientMe>(() => {
-    if (!me) return {}
-    return (
-      draft ?? {
-        name: me.name,
-        email: me.email,
-        phone: me.phone ?? '',
-        monthlyIncome: me.monthlyIncome ?? 0,
-      }
-    )
-  }, [draft, me])
+  const form: UpdateClientMe =
+    !me ? {} : draft ?? { name: me.name, email: me.email, phone: me.phone ?? '', monthlyIncome: me.monthlyIncome ?? 0 }
 
-  const canSubmit = useMemo(() => {
-    const nameOk = (form.name ?? '').trim().length >= 3
-    const emailOk = (form.email ?? '').trim().includes('@')
-    const incomeOk = form.monthlyIncome == null || (Number.isFinite(form.monthlyIncome) && form.monthlyIncome >= 0)
-    return nameOk && emailOk && incomeOk && !saveMutation.isPending
-  }, [form.email, form.monthlyIncome, form.name, saveMutation.isPending])
+  const canSubmit =
+    (form.name ?? '').trim().length >= 3 &&
+    (form.email ?? '').trim().includes('@') &&
+    (form.monthlyIncome == null || (Number.isFinite(form.monthlyIncome) && form.monthlyIncome >= 0)) &&
+    !saveMutation.isPending
 
   function onSubmit(e: FormEvent) {
     e.preventDefault()

@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../../shared/components/Icon'
 import { useAuth } from '../../auth'
@@ -7,7 +6,7 @@ export function ProfilePage() {
   const navigate = useNavigate()
   const { userId, roles, isTokenExpired, logout } = useAuth()
 
-  const roleLabel = useMemo(() => (roles.length ? roles.join(', ') : 'Sin roles'), [roles])
+  const roleLabel = roles.length ? roles.join(', ') : 'Sin roles'
 
   return (
     <div className="mx-auto w-full max-w-4xl space-y-6">
