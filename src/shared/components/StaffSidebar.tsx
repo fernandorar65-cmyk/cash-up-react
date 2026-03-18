@@ -6,19 +6,7 @@ import type { Role } from '../../features/auth/types/auth.types'
 type Item = { to: string; label: string; icon: string; filled?: boolean; roles: Role[] }
 
 const items: Item[] = [
-  { to: '/staff/dashboard', label: 'Dashboard', icon: 'dashboard', roles: ['ANALYST'] },
-  { to: '/staff/clients', label: 'Clientes', icon: 'groups', roles: ['ANALYST'] },
-  {
-    to: '/staff/credit-requests/new',
-    label: 'Solicitudes',
-    icon: 'description',
-    filled: true,
-    roles: ['ANALYST'],
-  },
   { to: '/staff/credit-requests/pending', label: 'Pendientes', icon: 'pending_actions', roles: ['ANALYST'] },
-  { to: '/staff/credit-requests/approve', label: 'Aprobar', icon: 'rule', roles: ['ANALYST'] },
-  { to: '/staff/users/new', label: 'Crear usuario', icon: 'person_add', roles: ['ANALYST'] },
-  { to: '/staff/profile', label: 'Perfil', icon: 'person', roles: ['ANALYST'] },
 ]
 
 export function StaffSidebar({

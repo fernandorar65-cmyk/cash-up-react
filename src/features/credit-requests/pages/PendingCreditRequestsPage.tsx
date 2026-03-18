@@ -1,9 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { httpClient } from '../../../shared/services/httpClient'
 import { errorMessage } from '../../../shared/utils/errorMessage'
 import { Icon } from '../../../shared/components/Icon'
-import { useState } from 'react'
 
 type PendingCreditRequest = {
   id: string
@@ -19,32 +18,11 @@ type PendingCreditRequest = {
 }
 
 export function PendingCreditRequestsPage() {
-  const queryClient = useQueryClient()
   const pendingQuery = useQuery({
     queryKey: ['credit-requests', 'pending'],
     queryFn: async () => {
       const { data } = await httpClient.get<PendingCreditRequest[]>('/credit-requests/pending')
       return data
-    },
-  })
-
-  const [rejectOpen, setRejectOpen] = useState(false)
-  const [rejectingId, setRejectingId] = useState<string | null>(null)
-  const [rejectionReason, setRejectionReason] = useState('')
-
-  const rejectMutation = useMutation({
-    mutationKey: ['credit-requests', 'reject'],
-    mutationFn: async (payload: { id: string; rejectionReason: string }) => {
-      const { data } = await httpClient.patch(`/credit-requests/${payload.id}/reject`, {
-        rejectionReason: payload.rejectionReason,
-      })
-      return data
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['credit-requests', 'pending'] })
-      setRejectOpen(false)
-      setRejectingId(null)
-      setRejectionReason('')
     },
   })
 
@@ -115,28 +93,20 @@ export function PendingCreditRequestsPage() {
                       {it.createdAt ? new Date(it.createdAt).toLocaleString() : '—'}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <div className="flex justify-end gap-2">
-                        <Link
-                          to="/staff/credit-requests/approve"
-                          state={{ creditRequestId: it.id }}
-                          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-                        >
-                          <Icon name="rule" className="text-[18px]" />
-                          Aprobar
-                        </Link>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setRejectingId(it.id)
-                            setRejectionReason('')
-                            setRejectOpen(true)
-                          }}
-                          className="inline-flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-semibold text-rose-700 shadow-sm transition hover:bg-rose-100"
-                        >
-                          <Icon name="cancel" className="text-[18px]" />
-                          Rechazar
-                        </button>
-                      </div>
+                      <Link
+                        to={`/staff/credit-requests/review/${it.id}`}
+                        state={{
+                          clientId: it.clientId,
+                          requestedAmount: it.requestedAmount,
+                          termMonths: it.termMonths,
+                          currency: it.currency,
+                          purpose: it.purpose,
+                        }}
+                        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                      >
+                        <Icon name="account_balance_wallet" className="text-[18px]" />
+                        Detalle del cliente
+                      </Link>
                     </td>
                   </tr>
                 ))}
@@ -149,78 +119,6 @@ export function PendingCreditRequestsPage() {
           </div>
         )}
       </div>
-
-      {rejectOpen && rejectingId ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/30 p-4"
-        >
-          <div className="w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 shadow-xl">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                  <Icon name="cancel" className="text-lg text-rose-700" />
-                  Rechazar solicitud
-                </div>
-                <h2 className="mt-1 text-lg font-black tracking-tight text-slate-900">Motivo de rechazo</h2>
-                <p className="mt-1 text-sm text-slate-600">
-                  Ingresa un motivo claro. Esto se enviará al backend.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setRejectOpen(false)}
-                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
-              >
-                Cerrar
-              </button>
-            </div>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                if (!rejectingId) return
-                rejectMutation.mutate({ id: rejectingId, rejectionReason: rejectionReason.trim() })
-              }}
-              className="mt-5 space-y-4"
-            >
-              <label className="grid gap-2">
-                <span className="text-sm font-semibold text-slate-800">RejectionReason</span>
-                <textarea
-                  className="min-h-[120px] w-full resize-y rounded-2xl border border-slate-200 bg-white p-3 text-sm outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10"
-                  value={rejectionReason}
-                  onChange={(e) => setRejectionReason(e.target.value)}
-                  placeholder="Ej. ingresos no verificables / documentación incompleta / riesgo alto..."
-                />
-              </label>
-
-              {rejectMutation.isError ? (
-                <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
-                  {errorMessage(rejectMutation.error)}
-                </div>
-              ) : null}
-
-              <div className="flex flex-wrap items-center justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setRejectOpen(false)}
-                  className="inline-flex h-11 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
-                >
-                  Cancelar
-                </button>
-                <button
-                  type="submit"
-                  disabled={!rejectionReason.trim().length || rejectMutation.isPending}
-                  className="inline-flex h-11 items-center justify-center rounded-xl bg-slate-900 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  {rejectMutation.isPending ? 'Rechazando…' : 'Confirmar rechazo'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      ) : null}
     </div>
   )
 }

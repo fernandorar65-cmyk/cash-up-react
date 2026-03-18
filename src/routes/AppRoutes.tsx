@@ -11,6 +11,7 @@ import { ClientsPage } from '../features/clients/pages/ClientsPage'
 import { NewCreditRequestPage } from '../features/credit-requests/pages/NewCreditRequestPage'
 import { ApproveCreditRequestPage } from '../features/credit-requests/pages/ApproveCreditRequestPage'
 import { PendingCreditRequestsPage } from '../features/credit-requests/pages/PendingCreditRequestsPage'
+import { ReviewCreditRequestPage } from '../features/credit-requests/pages/ReviewCreditRequestPage'
 import { ProfilePage } from '../features/profile/pages/ProfilePage'
 import { CreateUserPage } from '../features/users/pages/CreateUserPage'
 import { RoleGuard } from '../shared/hooks/RoleGuard'
@@ -58,6 +59,7 @@ export function AppRoutes() {
                   <Route path="new" element={<NewCreditRequestPage />} />
                   <Route path="pending" element={<PendingCreditRequestsPage />} />
                   <Route path="approve" element={<ApproveCreditRequestPage />} />
+                  <Route path="review/:id" element={<ReviewCreditRequestPage />} />
                 </Route>
               </Route>
             </Route>
