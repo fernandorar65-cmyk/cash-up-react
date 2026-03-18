@@ -106,7 +106,7 @@ export function LoginForm({ onSuccess }: { onSuccess: () => void }) {
       </div>
 
       <button
-        className="h-12 w-full rounded-xl bg-primary text-base font-bold text-white shadow-md shadow-black/20 transition hover:brightness-110 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+        className="h-12 w-full rounded-xl bg-slate-900 text-base font-bold text-white shadow-md shadow-black/10 transition hover:bg-slate-800 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
         disabled={!canSubmit || loading}
         type="submit"
       >

@@ -11,13 +11,13 @@ export function RegisterPage() {
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(900px circle at 20% 20%, rgba(23, 36, 54, 0.16), transparent 55%), radial-gradient(700px circle at 80% 30%, rgba(16, 185, 129, 0.12), transparent 55%)',
+            'radial-gradient(900px circle at 20% 20%, rgba(15, 23, 42, 0.08), transparent 58%), radial-gradient(700px circle at 80% 30%, rgba(20, 184, 166, 0.08), transparent 58%)',
         }}
       />
 
-      <section className="relative hidden rounded-3xl border border-slate-200 bg-background-light/90 p-8 shadow-sm ring-1 ring-black/5 md:flex md:flex-col md:justify-between">
+      <section className="relative hidden rounded-3xl border border-slate-200 bg-white/70 p-8 shadow-sm ring-1 ring-black/5 md:flex md:flex-col md:justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-2xl bg-primary text-white shadow-sm ring-1 ring-black/5">
+          <div className="flex size-10 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-sm ring-1 ring-black/5">
             <Icon name="account_balance_wallet" className="text-[22px]" />
           </div>
           <div className="leading-tight">
