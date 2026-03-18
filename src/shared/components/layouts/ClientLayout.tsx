@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { Icon } from './Icon'
-import { useAuth } from '../../features/auth'
-import type { Role } from '../../features/auth/types/auth.types'
+import { Icon } from '../Icon'
+import { useAuth } from '../../../features/auth'
+import type { Role } from '../../../features/auth/types/auth.types'
 
 type ItemDef = { to: string; label: string; icon: string; roles: Role[] }
 
@@ -57,4 +57,3 @@ export function ClientLayout() {
     </div>
   )
 }
-

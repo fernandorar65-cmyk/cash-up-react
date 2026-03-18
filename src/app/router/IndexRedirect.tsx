@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
-import { useAuth } from '../features/auth'
-import { getRole } from '../features/auth/services/token.storage.ts'
+import { useAuth } from '../../features/auth'
+import { getRole } from '../../features/auth/services/token.storage'
 
 export function IndexRedirect() {
   const { isAuthenticated, roles } = useAuth()
@@ -16,4 +16,3 @@ export function IndexRedirect() {
 
   return <Navigate to="/login" replace />
 }
-

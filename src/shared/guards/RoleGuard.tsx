@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import type { Role } from '../../features/auth/types/auth.types'
 import { useAuth } from '../../features/auth'
-import { getRole } from '../../features/auth/services/token.storage.ts'
+import { getRole } from '../../features/auth/services/token.storage'
 
 export function RoleGuard({ allow }: { allow: Role[] }) {
   const { roles } = useAuth()
@@ -13,4 +13,3 @@ export function RoleGuard({ allow }: { allow: Role[] }) {
 
   return <Outlet />
 }
-

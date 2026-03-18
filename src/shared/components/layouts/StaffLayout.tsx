@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import { StaffSidebar } from './StaffSidebar'
+import { StaffSidebar } from '../StaffSidebar'
 
 export function StaffLayout() {
   return (
@@ -13,4 +13,3 @@ export function StaffLayout() {
     </div>
   )
 }
-

@@ -15,4 +15,3 @@ export function TokenGuard() {
 
   return <Outlet />
 }
-

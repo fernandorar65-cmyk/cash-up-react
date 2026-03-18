@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { setUnauthorizedHandler } from '../services/httpClient'
-import { useAuth } from '../../features/auth'
-import { Button } from '../ui/Button'
+import { setUnauthorizedHandler } from '../../services/httpClient'
+import { useAuth } from '../../../features/auth'
+import { Button } from '../../ui/Button'
 
 function NavItem({ to, label, theme }: { to: string; label: string; theme: 'light' | 'dark' }) {
   return (
@@ -100,4 +100,3 @@ export function RootLayout() {
     </div>
   )
 }
-
