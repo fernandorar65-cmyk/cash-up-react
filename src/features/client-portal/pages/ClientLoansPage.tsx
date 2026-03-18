@@ -38,8 +38,8 @@ export function ClientLoansPage() {
               <thead className="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500">
                 <tr>
                   <th className="px-4 py-3">ID</th>
+                  <th className="px-4 py-3">Monto del préstamo</th>
                   <th className="px-4 py-3">Estado</th>
-                  <th className="px-4 py-3">Monto</th>
                   <th className="px-4 py-3">Plazo</th>
                   <th className="px-4 py-3" />
                 </tr>
@@ -48,10 +48,12 @@ export function ClientLoansPage() {
                 {loansQuery.data.map((loan) => (
                   <tr key={loan.id} className="hover:bg-slate-50">
                     <td className="px-4 py-3 font-mono text-xs text-slate-700">{loan.id}</td>
-                    <td className="px-4 py-3 text-slate-700">{loan.status ?? '—'}</td>
-                    <td className="px-4 py-3 text-slate-900">
-                      {loan.currency ?? 'PEN'} {loan.principal ?? '—'}
+                    <td className="px-4 py-3 font-semibold text-slate-900">
+                      {(loan.amount ?? loan.principal) != null
+                        ? `${loan.currency ?? 'S/'} ${Number(loan.amount ?? loan.principal).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`
+                        : '—'}
                     </td>
+                    <td className="px-4 py-3 text-slate-700">{loan.status ?? '—'}</td>
                     <td className="px-4 py-3 text-slate-700">{loan.termMonths ?? '—'} meses</td>
                     <td className="px-4 py-3 text-right">
                       <Link

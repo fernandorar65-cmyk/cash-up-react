@@ -68,7 +68,9 @@ export function ClientLoanDetailPage() {
               <div className="flex items-center justify-between">
                 <dt className="text-slate-600">Monto</dt>
                 <dd className="font-semibold text-slate-900">
-                  {loanQuery.data.currency ?? 'PEN'} {loanQuery.data.principal ?? '—'}
+                  {loanQuery.data.currency ?? 'S/'} {(loanQuery.data.amount ?? loanQuery.data.principal) != null
+                    ? Number(loanQuery.data.amount ?? loanQuery.data.principal).toLocaleString('es-PE', { minimumFractionDigits: 2 })
+                    : '—'}
                 </dd>
               </div>
               <div className="flex items-center justify-between">
@@ -112,7 +114,7 @@ export function ClientLoanDetailPage() {
                       <th className="px-4 py-3">N°</th>
                       <th className="px-4 py-3">Vence</th>
                       <th className="px-4 py-3">Estado</th>
-                      <th className="px-4 py-3 text-right">Monto</th>
+                      <th className="px-4 py-3 text-right">Cuota (total a pagar)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200">
@@ -134,7 +136,18 @@ export function ClientLoanDetailPage() {
                           </span>
                         </td>
                         <td className="px-4 py-3 text-right font-semibold text-slate-900">
-                          {it.amount ?? '—'}
+                          {(() => {
+                            const total =
+                              it.totalAmount ??
+                              it.amount ??
+                              (it.principalAmount != null && it.interestAmount != null
+                                ? it.principalAmount + it.interestAmount
+                                : it.principalAmount)
+                            const symbol = loanQuery.data?.currency === 'USD' ? '$' : 'S/'
+                            return total != null
+                              ? `${symbol} ${Number(total).toLocaleString('es-PE', { minimumFractionDigits: 2 })}`
+                              : '—'
+                          })()}
                         </td>
                       </tr>
                     ))}
