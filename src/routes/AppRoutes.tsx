@@ -6,15 +6,14 @@ import { NotFoundPage } from '../shared/components/NotFoundPage'
 import { RootLayout } from '../shared/components/RootLayout'
 
 import { StaffLayout } from '../shared/components/StaffLayout'
-import { ForbiddenPage } from '../shared/components/ForbiddenPage'
-import { PendingCreditRequestsPage } from '../features/credit-requests/pages/PendingCreditRequestsPage'
-import { ReviewCreditRequestPage } from '../features/credit-requests/pages/ReviewCreditRequestPage'
+import { PendingCreditRequestsPage } from '../features/staff-credit-requests/pages/PendingCreditRequestsPage'
+import { ReviewCreditRequestPage } from '../features/staff-credit-requests/pages/ReviewCreditRequestPage'
 import { RoleGuard } from '../shared/hooks/RoleGuard'
 import { ClientLayout } from '../shared/components/ClientLayout'
-import { ClientProfilePage } from '../features/client/pages/ClientProfilePage'
-import { ClientNewCreditRequestPage } from '../features/client/pages/ClientNewCreditRequestPage'
-import { ClientLoansPage } from '../features/client/pages/ClientLoansPage'
-import { ClientLoanDetailPage } from '../features/client/pages/ClientLoanDetailPage'
+import { ClientProfilePage } from '../features/client-portal/pages/ClientProfilePage'
+import { ClientNewCreditRequestPage } from '../features/client-portal/pages/ClientNewCreditRequestPage'
+import { ClientLoansPage } from '../features/client-portal/pages/ClientLoansPage'
+import { ClientLoanDetailPage } from '../features/client-portal/pages/ClientLoanDetailPage'
 import { IndexRedirect } from './IndexRedirect'
 
 export function AppRoutes() {
@@ -24,8 +23,6 @@ export function AppRoutes() {
         <Route index element={<IndexRedirect />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="forbidden" element={<ForbiddenPage />} />
-
         <Route element={<TokenGuard />}>
           <Route element={<AuthGuard />}>
             <Route element={<RoleGuard allow={['CLIENT']} />}>
