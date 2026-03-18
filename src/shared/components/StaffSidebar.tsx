@@ -15,6 +15,7 @@ const items: Item[] = [
     filled: true,
     roles: ['ANALYST'],
   },
+  { to: '/staff/credit-requests/pending', label: 'Pendientes', icon: 'pending_actions', roles: ['ANALYST'] },
   { to: '/staff/credit-requests/approve', label: 'Aprobar', icon: 'rule', roles: ['ANALYST'] },
   { to: '/staff/users/new', label: 'Crear usuario', icon: 'person_add', roles: ['ANALYST'] },
   { to: '/staff/profile', label: 'Perfil', icon: 'person', roles: ['ANALYST'] },
