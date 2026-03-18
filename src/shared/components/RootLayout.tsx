@@ -24,7 +24,8 @@ export function RootLayout() {
   const navigate = useNavigate()
   const { isAuthenticated, roles, logout } = useAuth()
   const isAuthRoute = location.pathname === '/login' || location.pathname === '/register'
-  const theme: 'light' | 'dark' = isAuthRoute ? 'light' : 'dark'
+  const isClientRoute = location.pathname === '/client' || location.pathname.startsWith('/client/')
+  const theme: 'light' | 'dark' = isAuthRoute || isClientRoute ? 'light' : 'dark'
 
   useEffect(() => {
     setUnauthorizedHandler(() => {

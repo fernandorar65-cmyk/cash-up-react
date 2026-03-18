@@ -141,7 +141,15 @@ export function ClientLoanDetailPage() {
                         <td className="px-4 py-3 text-slate-700">{it.number ?? '—'}</td>
                         <td className="px-4 py-3 text-slate-700">{it.dueDate ?? '—'}</td>
                         <td className="px-4 py-3">
-                          <span className="inline-flex rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700">
+                          <span
+                            className={
+                              it.status === 'PAID'
+                                ? 'inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800'
+                                : it.status === 'OVERDUE'
+                                  ? 'inline-flex rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-800'
+                                  : 'inline-flex rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700'
+                            }
+                          >
                             {it.status ?? '—'}
                           </span>
                         </td>

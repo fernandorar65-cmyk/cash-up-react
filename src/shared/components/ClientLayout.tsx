@@ -17,8 +17,8 @@ function Item({ to, label, icon }: { to: string; label: string; icon: string }) 
       to={to}
       className={({ isActive }) =>
         isActive
-          ? 'inline-flex items-center gap-2 rounded-xl bg-slate-900 px-3 py-2 text-sm font-semibold text-white'
-          : 'inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100'
+          ? 'inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm'
+          : 'inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-white hover:text-slate-900'
       }
     >
       <Icon name={icon} className="text-[18px]" />
@@ -36,7 +36,7 @@ export function ClientLayout() {
       <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-2xl bg-slate-900 text-white">
+            <div className="flex size-10 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-sm">
               <Icon name="account_balance_wallet" className="text-[22px]" />
             </div>
             <div className="leading-tight">
@@ -45,7 +45,7 @@ export function ClientLayout() {
             </div>
           </div>
 
-          <nav className="flex flex-wrap gap-2">
+          <nav className="flex flex-wrap gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1">
             {visibleItems.map((it) => (
               <Item key={it.to} to={it.to} label={it.label} icon={it.icon} />
             ))}

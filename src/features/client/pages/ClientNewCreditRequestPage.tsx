@@ -141,7 +141,7 @@ export function ClientNewCreditRequestPage() {
             <button
               type="submit"
               disabled={!canSubmit}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-900 bg-slate-900 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
             >
               <Icon name="send" className="text-lg" />
               {createMutation.isPending ? 'Enviando…' : 'Enviar solicitud'}
