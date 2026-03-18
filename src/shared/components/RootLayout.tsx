@@ -25,7 +25,8 @@ export function RootLayout() {
   const { isAuthenticated, roles, logout } = useAuth()
   const isAuthRoute = location.pathname === '/login' || location.pathname === '/register'
   const isClientRoute = location.pathname === '/client' || location.pathname.startsWith('/client/')
-  const theme: 'light' | 'dark' = isAuthRoute || isClientRoute ? 'light' : 'dark'
+  const isStaffRoute = location.pathname === '/staff' || location.pathname.startsWith('/staff/')
+  const theme: 'light' | 'dark' = isAuthRoute || isClientRoute || isStaffRoute ? 'light' : 'dark'
 
   useEffect(() => {
     setUnauthorizedHandler(() => {
@@ -78,7 +79,7 @@ export function RootLayout() {
                 <span className={theme === 'light' ? 'hidden text-xs text-slate-500 sm:inline' : 'hidden text-xs text-slate-400 sm:inline'}>
                   {roles.length ? roles.join(', ') : 'Sin roles'}
                 </span>
-                <Button variant={theme === 'light' ? 'ghost' : 'secondary'} size="sm" onClick={logout}>
+                <Button variant="secondary" size="sm" onClick={logout}>
                   Salir
                 </Button>
               </>
@@ -87,7 +88,13 @@ export function RootLayout() {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl px-4 py-6">
+      <main
+        className={
+          isStaffRoute
+            ? 'w-full'
+            : 'mx-auto w-full max-w-5xl px-4 py-6'
+        }
+      >
         <Outlet />
       </main>
     </div>

@@ -25,13 +25,13 @@ function ScorePill({ score }: { score: number }) {
 
 export function ClientsPage() {
   return (
-    <div className="flex min-h-[calc(100svh-3.5rem)] flex-col gap-6">
+    <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-black tracking-tight text-primary dark:text-slate-100">Gestión de Clientes</h2>
-          <p className="text-sm text-slate-500">Monitoreo de cartera y evaluación de scoring crediticio.</p>
+          <h2 className="text-3xl font-black tracking-tight text-slate-900">Gestión de Clientes</h2>
+          <p className="text-sm text-slate-600">Monitoreo de cartera y evaluación de scoring crediticio.</p>
         </div>
-        <button className="flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-bold text-white shadow-lg transition-opacity hover:opacity-90">
+        <button className="flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-2.5 font-bold text-white shadow-sm transition hover:bg-slate-800">
           <Icon name="person_add" />
           <span>Nuevo Cliente</span>
         </button>
@@ -39,17 +39,17 @@ export function ClientsPage() {
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
         <div className="xl:col-span-5">
-          <div className="rounded-xl border border-primary/5 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
             <div className="flex flex-col gap-4">
               <div className="flex gap-2 overflow-x-auto pb-2">
-                <button className="rounded-full bg-primary px-4 py-1.5 text-xs font-bold text-white">Todos</button>
-                <button className="rounded-full bg-primary/5 px-4 py-1.5 text-xs font-bold text-slate-600 hover:bg-primary/10 dark:text-slate-300">
+                <button className="rounded-full bg-slate-900 px-4 py-1.5 text-xs font-bold text-white">Todos</button>
+                <button className="rounded-full bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100">
                   Activos
                 </button>
-                <button className="rounded-full bg-primary/5 px-4 py-1.5 text-xs font-bold text-slate-600 hover:bg-primary/10 dark:text-slate-300">
+                <button className="rounded-full bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100">
                   En Mora
                 </button>
-                <button className="rounded-full bg-primary/5 px-4 py-1.5 text-xs font-bold text-slate-600 hover:bg-primary/10 dark:text-slate-300">
+                <button className="rounded-full bg-slate-50 px-4 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100">
                   Revision
                 </button>
               </div>
@@ -57,7 +57,7 @@ export function ClientsPage() {
               <div className="relative">
                 <Icon name="search" className="absolute left-3 top-2.5 text-[20px] text-slate-400" />
                 <input
-                  className="w-full rounded-lg border-none bg-background-light py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 dark:bg-white/5"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm outline-none focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10"
                   placeholder="Nombre o documento..."
                   type="text"
                 />
@@ -66,24 +66,24 @@ export function ClientsPage() {
 
             <div className="mt-6 overflow-hidden">
               <table className="w-full text-left">
-                <thead className="border-b border-primary/5">
+                <thead className="border-b border-slate-200">
                   <tr className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
                     <th className="pb-3 pl-2">Cliente</th>
                     <th className="pb-3 text-center">Score</th>
                     <th className="pb-3 pr-2 text-right">Estado</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-primary/5">
+                <tbody className="divide-y divide-slate-200">
                   {rows.map((r, idx) => (
                     <tr
                       key={r.dni}
-                      className={`${idx === 0 ? 'bg-primary/5' : ''} cursor-pointer transition-colors hover:bg-primary/5`}
+                      className={`${idx === 0 ? 'bg-slate-50' : ''} cursor-pointer transition-colors hover:bg-slate-50`}
                     >
                       <td className="py-4 pl-2">
                         <div className="flex items-center gap-3">
                           <div className="size-8 rounded-full bg-slate-200" />
                           <div>
-                            <p className="text-sm font-bold text-primary dark:text-slate-100">{r.name}</p>
+                            <p className="text-sm font-bold text-slate-900">{r.name}</p>
                             <p className="text-[10px] text-slate-500">DNI: {r.dni}</p>
                           </div>
                         </div>
@@ -107,16 +107,16 @@ export function ClientsPage() {
         </div>
 
         <div className="xl:col-span-7">
-          <div className="overflow-hidden rounded-xl border border-primary/5 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex items-center justify-between bg-primary p-6 text-white">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-slate-50 p-6">
               <div className="flex items-center gap-4">
-                <div className="size-16 rounded-xl border-2 border-white/20 bg-white/10" />
+                <div className="size-16 rounded-2xl border border-slate-200 bg-white" />
                 <div>
-                  <h3 className="text-xl font-bold leading-tight">Maria Rodriguez</h3>
-                  <p className="text-sm text-white/60">Cliente Premium • Desde Octubre 2021</p>
+                  <h3 className="text-xl font-bold leading-tight text-slate-900">Maria Rodriguez</h3>
+                  <p className="text-sm text-slate-600">Cliente Premium • Desde Octubre 2021</p>
                 </div>
               </div>
-              <button className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold transition-colors hover:bg-white/20">
+              <button className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-900 shadow-sm transition hover:bg-slate-50">
                 Editar Perfil
               </button>
             </div>
@@ -129,20 +129,20 @@ export function ClientsPage() {
               ].map(([k, v]) => (
                 <div key={k}>
                   <p className="mb-1 text-[10px] font-bold uppercase text-slate-400">{k}</p>
-                  <p className="text-sm font-semibold text-primary dark:text-slate-100">{v}</p>
+                  <p className="text-sm font-semibold text-slate-900">{v}</p>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <div className="flex flex-col justify-between rounded-xl border border-primary/5 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="mb-4 flex items-start justify-between">
                 <div>
-                  <h4 className="text-sm font-bold uppercase tracking-wider text-primary dark:text-slate-100">Credit Scoring</h4>
-                  <p className="text-xs text-slate-500">Última actualización: hace 2 horas</p>
+                  <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900">Credit Scoring</h4>
+                  <p className="text-xs text-slate-600">Última actualización: hace 2 horas</p>
                 </div>
-                <button className="rounded-lg p-2 text-primary transition-colors hover:bg-primary/5">
+                <button className="rounded-xl p-2 text-slate-700 transition-colors hover:bg-slate-50">
                   <Icon name="refresh" />
                 </button>
               </div>
@@ -187,15 +187,15 @@ export function ClientsPage() {
               </button>
             </div>
 
-            <div className="rounded-xl border border-primary/5 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <h4 className="mb-6 text-sm font-bold uppercase tracking-wider text-primary dark:text-slate-100">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h4 className="mb-6 text-sm font-bold uppercase tracking-wider text-slate-900">
                 Historial de Pagos
               </h4>
               <div className="flex h-full items-center gap-8">
                 <div className="relative size-32 shrink-0">
-                  <div className="absolute inset-0 rounded-full border-[14px] border-slate-100 dark:border-slate-800" />
+                  <div className="absolute inset-0 rounded-full border-14 border-slate-100" />
                   <div
-                    className="absolute inset-0 rounded-full border-[14px] border-emerald-500"
+                    className="absolute inset-0 rounded-full border-14 border-emerald-500"
                     style={{
                       clipPath:
                         'polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0)',
@@ -215,7 +215,7 @@ export function ClientsPage() {
                     <div key={label} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className={`size-2 rounded-full ${dot}`} />
-                        <span className="text-xs font-medium text-slate-500">{label}</span>
+                        <span className="text-xs font-medium text-slate-600">{label}</span>
                       </div>
                       <span className="text-xs font-bold">{val}</span>
                     </div>
@@ -229,21 +229,23 @@ export function ClientsPage() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-xl border border-primary/5 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="mb-6 flex items-center justify-between">
-              <h4 className="text-sm font-bold uppercase tracking-wider text-primary dark:text-slate-100">
+              <h4 className="text-sm font-bold uppercase tracking-wider text-slate-900">
                 Estado de Deuda Total
               </h4>
-              <span className="rounded bg-primary/10 px-3 py-1 text-xs font-bold text-primary dark:text-white">$ USD</span>
+              <span className="rounded-xl border border-slate-200 bg-white px-3 py-1 text-xs font-bold text-slate-700">
+                $ USD
+              </span>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div className="rounded-xl border border-primary/5 bg-background-light p-4 dark:bg-white/5">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                 <p className="mb-2 text-[10px] font-bold uppercase text-slate-400">Deuda Capital</p>
-                <p className="text-2xl font-black text-primary dark:text-slate-100">$24,500.00</p>
+                <p className="text-2xl font-black text-slate-900">$24,500.00</p>
               </div>
-              <div className="rounded-xl border border-primary/5 bg-background-light p-4 dark:bg-white/5">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                 <p className="mb-2 text-[10px] font-bold uppercase text-slate-400">Intereses Acumulados</p>
-                <p className="text-2xl font-black text-primary dark:text-slate-100">$3,240.50</p>
+                <p className="text-2xl font-black text-slate-900">$3,240.50</p>
               </div>
               <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 dark:border-emerald-900 dark:bg-emerald-950/30">
                 <p className="mb-2 text-[10px] font-bold uppercase text-emerald-600 dark:text-emerald-400">Próximo Vencimiento</p>
