@@ -1,30 +1,13 @@
 import { useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { httpClient } from '../../../shared/services/httpClient'
 import { errorMessage } from '../../../shared/utils/errorMessage'
 import { Icon } from '../../../shared/components/Icon'
-
-type ClientMe = {
-  id: string
-  documentType?: string
-  documentNumber?: string
-  name: string
-  email: string
-  phone?: string
-  monthlyIncome?: number
-  score?: number
-  [k: string]: unknown
-}
-
-type UpdateClientMe = {
-  name?: string
-  email?: string
-  phone?: string
-  monthlyIncome?: number
-}
+import type { ClientMe, UpdateClientMe } from '../entities/client.types'
 
 export function ClientProfilePage() {
+  const queryClient = useQueryClient()
   const meQuery = useQuery({
     queryKey: ['client', 'me'],
     queryFn: async () => {
@@ -42,7 +25,7 @@ export function ClientProfilePage() {
       return data
     },
     onSuccess: (updated) => {
-      meQuery.setData(updated)
+      queryClient.setQueryData(['client', 'me'], updated)
       setDraft(null)
     },
   })

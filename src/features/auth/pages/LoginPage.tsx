@@ -80,7 +80,7 @@ export function LoginPage() {
             <LoginForm
               onSuccess={() => {
                 const role = (getRole() ?? '').trim().toUpperCase()
-                if (role === 'ANALYST') navigate('/staff/dashboard', { replace: true })
+                if (role === 'ANALYST') navigate('/staff', { replace: true })
                 else if (role === 'CLIENT') navigate('/client/profile', { replace: true })
                 else navigate('/forbidden', { replace: true })
               }}

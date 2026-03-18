@@ -4,22 +4,7 @@ import { useMutation } from '@tanstack/react-query'
 import { httpClient } from '../../../shared/services/httpClient'
 import { errorMessage } from '../../../shared/utils/errorMessage'
 import { Icon } from '../../../shared/components/Icon'
-
-type CreditRequestBody = {
-  requestedAmount: number
-  termMonths: number
-  currency?: string
-  purpose?: string
-  clientNotes?: string
-}
-
-type CreditRequestResponse = {
-  id?: string
-  status?: string
-  requestedAmount?: number
-  termMonths?: number
-  [k: string]: unknown
-}
+import type { CreditRequestBody, CreditRequestResponse } from '../entities/creditRequest.types'
 
 const initial: CreditRequestBody = {
   requestedAmount: 8000,

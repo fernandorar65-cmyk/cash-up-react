@@ -5,28 +5,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { httpClient } from '../../../shared/services/httpClient'
 import { errorMessage } from '../../../shared/utils/errorMessage'
 import { Icon } from '../../../shared/components/Icon'
-
-type Evaluation = {
-  id: string
-  clientId: string
-  score?: number
-  approved?: boolean
-  factors?: Record<string, unknown>
-  evaluatedAt?: string
-  evaluationOutcome?: number
-}
-
-type CreditRequestDetail = {
-  id: string
-  clientId: string
-  requestedAmount?: number
-  termMonths?: number
-  currency?: string
-  purpose?: string
-  status?: string
-  createdAt?: string
-  [k: string]: unknown
-}
+import type { CreditRequestDetail } from '../entities/creditRequest.types'
+import type { Evaluation } from '../entities/evaluation.types'
 
 type ReviewLocationState = {
   clientId?: string
@@ -283,6 +263,20 @@ export function ReviewCreditRequestPage() {
                   placeholder="Tasa"
                   value={approvedInterestRate}
                   onChange={(e) => setApprovedInterestRate(e.target.value)}
+                />
+
+                <input
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"
+                  placeholder="Tipo de interés (ej. TEA)"
+                  value={approvedInterestType}
+                  onChange={(e) => setApprovedInterestType(e.target.value)}
+                />
+
+                <input
+                  className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm"
+                  type="date"
+                  value={firstInstallmentDueDate}
+                  onChange={(e) => setFirstInstallmentDueDate(e.target.value)}
                 />
   
                 <button

@@ -4,16 +4,11 @@ import { AuthGuard } from '../shared/hooks/AuthGuard'
 import { LoginPage, RegisterPage } from '../features/auth'
 import { NotFoundPage } from '../shared/components/NotFoundPage'
 import { RootLayout } from '../shared/components/RootLayout'
+
 import { StaffLayout } from '../shared/components/StaffLayout'
 import { ForbiddenPage } from '../shared/components/ForbiddenPage'
-import { StaffDashboardPage } from '../features/dashboard/pages/StaffDashboardPage'
-import { ClientsPage } from '../features/clients/pages/ClientsPage'
-import { NewCreditRequestPage } from '../features/credit-requests/pages/NewCreditRequestPage'
-import { ApproveCreditRequestPage } from '../features/credit-requests/pages/ApproveCreditRequestPage'
 import { PendingCreditRequestsPage } from '../features/credit-requests/pages/PendingCreditRequestsPage'
 import { ReviewCreditRequestPage } from '../features/credit-requests/pages/ReviewCreditRequestPage'
-import { ProfilePage } from '../features/profile/pages/ProfilePage'
-import { CreateUserPage } from '../features/users/pages/CreateUserPage'
 import { RoleGuard } from '../shared/hooks/RoleGuard'
 import { ClientLayout } from '../shared/components/ClientLayout'
 import { ClientProfilePage } from '../features/client/pages/ClientProfilePage'
@@ -49,16 +44,8 @@ export function AppRoutes() {
 
             <Route element={<RoleGuard allow={['ANALYST']} />}>
               <Route path="staff" element={<StaffLayout />}>
-                <Route path="dashboard" element={<StaffDashboardPage />} />
-                <Route path="clients" element={<ClientsPage />} />
-                <Route path="profile" element={<ProfilePage />} />
-                <Route path="users">
-                  <Route path="new" element={<CreateUserPage />} />
-                </Route>
                 <Route path="credit-requests">
-                  <Route path="new" element={<NewCreditRequestPage />} />
                   <Route path="pending" element={<PendingCreditRequestsPage />} />
-                  <Route path="approve" element={<ApproveCreditRequestPage />} />
                   <Route path="review/:id" element={<ReviewCreditRequestPage />} />
                 </Route>
               </Route>

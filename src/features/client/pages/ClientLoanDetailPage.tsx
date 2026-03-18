@@ -3,27 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { httpClient } from '../../../shared/services/httpClient'
 import { errorMessage } from '../../../shared/utils/errorMessage'
 import { Icon } from '../../../shared/components/Icon'
-
-type Loan = {
-  id: string
-  status?: string
-  currency?: string
-  principal?: number
-  interestRate?: number
-  interestType?: string
-  termMonths?: number
-  createdAt?: string
-  [k: string]: unknown
-}
-
-type Installment = {
-  id: string
-  number?: number
-  dueDate?: string
-  status?: 'PENDING' | 'PAID' | 'OVERDUE' | string
-  amount?: number
-  [k: string]: unknown
-}
+import type { Installment, Loan } from '../entities/loan.types'
 
 export function ClientLoanDetailPage() {
   const { loanId } = useParams<{ loanId: string }>()

@@ -3,17 +3,7 @@ import { Link } from 'react-router-dom'
 import { httpClient } from '../../../shared/services/httpClient'
 import { errorMessage } from '../../../shared/utils/errorMessage'
 import { Icon } from '../../../shared/components/Icon'
-
-type Loan = {
-  id: string
-  status?: string
-  currency?: string
-  principal?: number
-  interestRate?: number
-  termMonths?: number
-  createdAt?: string
-  [k: string]: unknown
-}
+import type { Loan } from '../entities/loan.types'
 
 export function ClientLoansPage() {
   const loansQuery = useQuery({

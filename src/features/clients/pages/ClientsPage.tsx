@@ -1,11 +1,5 @@
 import { Icon } from '../../../shared/components/Icon'
-
-type ClientRow = {
-  name: string
-  dni: string
-  score: number
-  status: 'good' | 'warn' | 'bad'
-}
+import type { ClientRow } from '../entities/clientRow.types'
 
 const rows: ClientRow[] = [
   { name: 'Maria Rodriguez', dni: '40.231.554', score: 750, status: 'good' },

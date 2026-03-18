@@ -3,19 +3,7 @@ import { Link } from 'react-router-dom'
 import { httpClient } from '../../../shared/services/httpClient'
 import { errorMessage } from '../../../shared/utils/errorMessage'
 import { Icon } from '../../../shared/components/Icon'
-
-type PendingCreditRequest = {
-  id: string
-  clientId: string
-  requestedAmount: number
-  termMonths: number
-  currency?: string
-  purpose?: string
-  clientNotes?: string
-  evaluationId?: string
-  status: 'PENDING' | string
-  createdAt: string
-}
+import type { PendingCreditRequest } from '../entities/creditRequest.types'
 
 export function PendingCreditRequestsPage() {
   const pendingQuery = useQuery({
